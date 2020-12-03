@@ -1,6 +1,6 @@
 package com.dkit.Sd2a.ethan.sia;
 
-public class Computer
+public abstract class Computer
 {
     private String type;
     private String manufacturer;

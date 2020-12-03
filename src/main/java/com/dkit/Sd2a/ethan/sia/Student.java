@@ -1,5 +1,6 @@
 package com.dkit.Sd2a.ethan.sia;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,21 +10,16 @@ public class Student
     private String id;
     private String email;
     private String telephone;
-    private Map<String,Computer> computers ;
+    private Map<String,Computer> computersTag;
 
     public Student(String name, String id, String email, String telephone) {
         this.name = name;
         this.id = id;
         this.email = email;
         this.telephone = telephone;
-        computers = new HashMap<>();
+        computersTag = computersTag;
     }
 
-
-    public void addBook( Computer compTag )
-    {
-        computers.put(compTag.getAssetTag(),compTag);  // use asset tag as Key, and Comp object as value
-    }
 
     public String getName() {
         return name;
@@ -57,6 +53,18 @@ public class Student
         this.telephone = telephone;
     }
 
+    public void addTag( Computer c)
+    {
+        computersTag.put(c.getAssetTag(),c);  // use student id as Key, and Student object as value
+    }
+
+
+    public Map<String, Computer> getComputersTag() {
+        return computersTag;
+    }
+
+
+
     @Override
     public String toString() {
         return "Student{" +
@@ -64,7 +72,7 @@ public class Student
                 ", id='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", computers=" + computers +
+                ", computers=" + computersTag +
                 '}';
     }
 }
