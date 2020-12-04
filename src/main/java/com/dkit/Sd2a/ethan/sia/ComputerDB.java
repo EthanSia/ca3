@@ -34,31 +34,5 @@ public class ComputerDB //instanceof
         computerList.add( c );
     }
 
-    public Computer findComputerType(String assetTag)
-    {
-        for(Computer c: computerList )
-        {
-            if(c.getAssetTag().equals(assetTag))
-            {
-                if(c!=null)
 
-                    if(c instanceof Raspberry)
-
-                        c.getType();
-
-
-                    else if(c instanceof Laptop)
-                    {
-                        c.getType();
-                    }
-                    else if(c instanceof Desktop)
-                    {
-                        c.getType();
-                    }
-
-
-            }
-        }
-        return null;    // not found
-    }
 }

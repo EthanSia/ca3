@@ -10,14 +10,14 @@ public class Student
     private String id;
     private String email;
     private String telephone;
-    private Map<String,Computer> computersTag;
+    private ArrayList<String> computersTag;
 
     public Student(String name, String id, String email, String telephone) {
         this.name = name;
         this.id = id;
         this.email = email;
         this.telephone = telephone;
-        computersTag = computersTag;
+        this.computersTag = computersTag;
     }
 
 
@@ -53,14 +53,12 @@ public class Student
         this.telephone = telephone;
     }
 
-    public void addTag( Computer c)
+    public void setComputersTag(String assetTag)
     {
-        computersTag.put(c.getAssetTag(),c);  // use student id as Key, and Student object as value
-    }
+        ArrayList<String> asset = new ArrayList<>();
+        asset.add(assetTag);
+        this.computersTag = asset;
 
-
-    public Map<String, Computer> getComputersTag() {
-        return computersTag;
     }
 
 
@@ -72,7 +70,7 @@ public class Student
                 ", id='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", computers=" + computersTag +
+                ", computersTag=" + computersTag +
                 '}';
     }
 }

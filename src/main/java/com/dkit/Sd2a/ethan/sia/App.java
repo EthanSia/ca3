@@ -24,10 +24,11 @@ public class App
         Raspberry r1 = new Raspberry("Raspberry","Raspberry PI","Model 4B","4GB","1TB","3.5kg","D123458","2011-11-21",15789,"32GB");
 
 
-        ArrayList<Computer>computers = new ArrayList<>();
-        computers.add(d1);
-        computers.add(l1);
-        computers.add(r1);
+       ComputerDB computers = new ComputerDB();
+        computers.addComputer(d1);
+        computers.addComputer(l1);
+        computers.addComputer(r1);
+
 
 
         StudentDB studentList = new StudentDB();
@@ -37,13 +38,14 @@ public class App
         studentList.addStudent(s2);
 
         BookingDB bookingList = new BookingDB();
-        Book b1 = new Book("D00225879","D123457");
-        bookingList.addBooking(b1);
         bookingList.addBooking(new Book ("D00225147","D123458"));
-        bookingList.addBooking(new Book ("D00225147","D123456"));
+        bookingList.addBooking(new Book ("D00225147","D123457"));
+        bookingList.getComputerType("D00225147","D123458",computers);
+        bookingList.getComputerType("D00225147","D123457",computers);
+        System.out.println(bookingList.findBookById("D00225147"));
+        studentList.addAssetTagInLoan("D00225147","D123458");
+        studentList.addAssetTagInLoan("D00225147","D123457");
 
-
-        System.out.println(b1);
         System.out.println(s2);
 
 

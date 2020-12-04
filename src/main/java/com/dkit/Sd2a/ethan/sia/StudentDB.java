@@ -52,12 +52,16 @@ public class StudentDB
 
     }
 
-    public void getTaginOnload(String id, Map<Map,String>s)
-    {
-        Student student = findStudentById( id );
-        if( student != null)
-            student.setComputersTag(s);
 
+    public void addAssetTagInLoan(String studentId,String assetTag)
+    {
+        for(Student s: studentList)
+        {
+            if(s.getId() == studentId)
+            {
+                s.setComputersTag(assetTag);
+            }
+        }
     }
 
     public void loadStudentsFromFile()
@@ -66,4 +70,6 @@ public class StudentDB
         // read records and instantiate new Student objects
         // add each new student object to s
     }
+
+
 }

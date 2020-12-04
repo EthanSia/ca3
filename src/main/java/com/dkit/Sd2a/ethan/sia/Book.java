@@ -12,7 +12,6 @@ public class Book
     private String bookingID;
     private String bookDateAndTime;
     private String returnDateAndTime;
-    private String computerType;
     private String type;
     private String studentId;
     private String assetTag;
@@ -32,6 +31,18 @@ public class Book
 
     }
 
+    public Book(String bookID,String bookDateAndTime,String returnDateAndTime,String type,String studentID,String assetTag)
+    {
+        counter++;
+        this.bookingID ="B" +counter;
+        this.bookDateAndTime = formatter.format(calendar.getTime());
+        this.returnDateAndTime ="";
+        this.type = type;
+        this.studentId = studentID;
+        this.assetTag = assetTag;
+
+
+    }
 
     public String getBookingID() {
         return bookingID;
@@ -55,6 +66,15 @@ public class Book
 
     public void setReturnDateAndTime(String returnDateAndTime) {
         this.returnDateAndTime = returnDateAndTime;
+    }
+
+    public
+    String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getStudentId() {
@@ -82,7 +102,7 @@ public class Book
                 "bookingID='" + bookingID + '\'' +
                 ", bookDateAndTime='" + bookDateAndTime + '\'' +
                 ", returnDateAndTime='" + returnDateAndTime + '\'' +
-                ", studentId=" + studentId +
+                ", Type=" + type +
                 ", studentId=" + studentId +
                 ", assetTag=" + assetTag +
                 '}';
