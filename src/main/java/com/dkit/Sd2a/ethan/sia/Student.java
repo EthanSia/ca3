@@ -17,7 +17,7 @@ public class Student
         this.id = id;
         this.email = email;
         this.telephone = telephone;
-        this.computersTag = computersTag;
+        this.computersTag = new ArrayList<>();
     }
 
 
@@ -53,11 +53,9 @@ public class Student
         this.telephone = telephone;
     }
 
-    public void setComputersTag(String assetTag)
+    public void addComputersTag(String assetTag)
     {
-        ArrayList<String> asset = new ArrayList<>();
-        asset.add(assetTag);
-        this.computersTag = asset;
+        computersTag.add(assetTag);
 
     }
 

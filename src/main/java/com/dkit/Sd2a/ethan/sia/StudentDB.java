@@ -59,7 +59,7 @@ public class StudentDB
         {
             if(s.getId() == studentId)
             {
-                s.setComputersTag(assetTag);
+                s.addComputersTag(assetTag);
             }
         }
     }
