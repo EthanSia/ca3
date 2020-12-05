@@ -1,7 +1,7 @@
 package com.dkit.Sd2a.ethan.sia;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
@@ -55,6 +55,7 @@ public class StudentDB
 
     public void addAssetTagInLoan(String studentId,String assetTag)
     {
+
         for(Student s: studentList)
         {
             if(s.getId() == studentId)
@@ -64,11 +65,35 @@ public class StudentDB
         }
     }
 
-    public void loadStudentsFromFile()
+    protected void loadStudentFromFile()
     {
-        // open 'students.txt' file
-        // read records and instantiate new Student objects
-        // add each new student object to s
+        try(Scanner studentFile = new Scanner(new BufferedReader(new FileReader("booking.txt"))))
+        {
+
+            String input;
+            while (studentFile.hasNextLine())
+            {
+                input = studentFile.nextLine();
+                String [] data = input.split(",");
+                String name = data[0];
+                String id = data[1];
+                String email = data[2];
+                String telephone = data[3];
+                ArrayList<String> computersTag = new ArrayList<>();
+                computersTag.add(data[4]);
+
+
+                Student readInStudent =new Student(name,id,email, telephone,  computersTag);
+                this.studentList.add(readInStudent);
+
+
+            }
+        }
+        catch(FileNotFoundException fne)
+        {
+            System.out.println("Could not load student.If this is " +
+                    "the first time running the app this might fine");
+        }
     }
 
 

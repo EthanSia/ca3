@@ -109,15 +109,15 @@ public class BookingDB
                 String studentId = data[4];
                 String assetTag = data[5];
 
-                Book readInPlayer =new Book(bookingID,bookDateAndTime,returnDateAndTime,type,studentId,assetTag);
-                this.bookingList.add(readInPlayer);
+                Book readInBooking =new Book(bookingID,bookDateAndTime,returnDateAndTime,type,studentId,assetTag);
+                this.bookingList.add(readInBooking);
 
 
             }
         }
         catch(FileNotFoundException fne)
         {
-            System.out.println("Could not load players.If this is " +
+            System.out.println("Could not load booking.If this is " +
                     "the first time running the app this might fine");
         }
     }

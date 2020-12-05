@@ -20,6 +20,13 @@ public class Student
         this.computersTag = new ArrayList<>();
     }
 
+    public Student(String name, String id, String email, String telephone, ArrayList<String> computersTag) {
+        this.name = name;
+        this.id = id;
+        this.email = email;
+        this.telephone = telephone;
+        this.computersTag = computersTag;
+    }
 
     public String getName() {
         return name;
