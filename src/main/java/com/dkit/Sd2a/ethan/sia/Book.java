@@ -1,99 +1,116 @@
 package com.dkit.Sd2a.ethan.sia;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
-public class Book
+public class Book implements Comparable<Book>
 {
 
     private String bookingID;
-    private String bookDateAndTime;
-    private String returnDateAndTime;
-    private String type;
+    private LocalDateTime bookDateAndTime;
+    private LocalDateTime returnDateAndTime;
+    private  ArrayList<String> type= new ArrayList<>();
     private String studentId;
-    private String assetTag;
+    private ArrayList<String> computersTag= new ArrayList<>();
     private static int counter =0000000;
-    private Calendar calendar = Calendar.getInstance();
-    private SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
 
-    public Book(String studentID,String assetTag)
+
+    public Book( ArrayList<String> type,String studentID,ArrayList<String> computersTag)
     {
         counter++;
         this.bookingID ="B" +counter;
-        this.bookDateAndTime = formatter.format(calendar.getTime());
-        this.returnDateAndTime ="";
+        this.bookDateAndTime = LocalDateTime.now();
+        this.returnDateAndTime = returnDateAndTime;
+        this.type =type;
         this.studentId = studentID;
-        this.assetTag = assetTag;
+        this.computersTag = computersTag;
 
 
     }
 
-    public Book(String bookID,String bookDateAndTime,String returnDateAndTime,String type,String studentID,String assetTag)
+    public Book(String bookID,LocalDateTime bookDateAndTime,LocalDateTime  returnDateAndTime,ArrayList<String> type,String studentID,ArrayList<String> computersTag)
     {
-        counter++;
-        this.bookingID ="B" +counter;
-        this.bookDateAndTime = formatter.format(calendar.getTime());
-        this.returnDateAndTime ="";
+        this.bookingID =bookID;
+        this.bookDateAndTime = bookDateAndTime;
+        this.returnDateAndTime = returnDateAndTime;
         this.type = type;
         this.studentId = studentID;
-        this.assetTag = assetTag;
+        this.computersTag = computersTag;
 
 
     }
 
-    public String getBookingID() {
+    public String getBookingID()
+    {
         return bookingID;
     }
 
-    public void setBookingID(String bookingID) {
+    public void setBookingID(String bookingID)
+    {
         this.bookingID = bookingID;
     }
 
-    public String getBookDateAndTime() {
+    public LocalDateTime getBookDateAndTime()
+    {
         return bookDateAndTime;
     }
 
-    public void setBookDateAndTime(String bookDateAndTime) {
+    public void setBookDateAndTime(LocalDateTime bookDateAndTime)
+    {
         this.bookDateAndTime = bookDateAndTime;
     }
 
-    public String getReturnDateAndTime() {
+    public LocalDateTime getReturnDateAndTime()
+    {
         return returnDateAndTime;
     }
 
-    public void setReturnDateAndTime(String returnDateAndTime) {
+    public void  setReturnDateAndTime(LocalDateTime returnDateAndTime)
+    {
         this.returnDateAndTime = returnDateAndTime;
     }
 
-    public
-    String getType() {
+    public ArrayList<String> getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ArrayList<String> type) {
         this.type = type;
     }
 
-    public String getStudentId() {
+    public String getStudentId()
+    {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(String studentId)
+    {
         this.studentId = studentId;
     }
 
-    public String getAssetTag() {
-        return assetTag;
+    public ArrayList<String> getComputersTag()
+    {
+        return computersTag;
     }
 
-    public void setAssetTag(String assetTag) {
-        this.assetTag = assetTag;
+    public void setComputersTag(ArrayList<String> computersTag)
+    {
+        this.computersTag = computersTag;
     }
 
+    public void addComputersTag(String assetTag)
+    {
+        computersTag.add(assetTag);
 
+    }
+
+    public int compareTo (Book other)
+    {
+        return this.bookDateAndTime.compareTo(other.bookDateAndTime);  // return -1,+1,0
+    }
 
 
     @Override
@@ -104,7 +121,7 @@ public class Book
                 ", returnDateAndTime='" + returnDateAndTime + '\'' +
                 ", Type=" + type +
                 ", studentId=" + studentId +
-                ", assetTag=" + assetTag +
+                ", Computer Tag=" + computersTag +
                 '}';
     }
 }

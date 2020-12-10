@@ -1,26 +1,27 @@
 package com.dkit.Sd2a.ethan.sia;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
-public class Student
+public class Student implements Comparable<Student>
 {
-    private String name;
     private String id;
+    private String name;
     private String email;
     private String telephone;
     private ArrayList<String> computersTag;
 
-    public Student(String name, String id, String email, String telephone) {
+
+    public Student( String name, String id, String email, String telephone)
+    {
         this.name = name;
         this.id = id;
         this.email = email;
         this.telephone = telephone;
-        this.computersTag = new ArrayList<>();
     }
 
-    public Student(String name, String id, String email, String telephone, ArrayList<String> computersTag) {
+    public Student(String name,String id, String email, String telephone, ArrayList<String>computersTag) {
+
         this.name = name;
         this.id = id;
         this.email = email;
@@ -60,13 +61,22 @@ public class Student
         this.telephone = telephone;
     }
 
-    public void addComputersTag(String assetTag)
+    public ArrayList<String> getComputersTag()
     {
-        computersTag.add(assetTag);
+        return computersTag;
+    }
 
+    public void setComputersTag(ArrayList<String> computersTag)
+    {
+        this.computersTag = computersTag;
     }
 
 
+
+    public int compareTo(Student other)
+   {
+      return this.id.compareTo(other.id);  // return -1,+1,0
+   }
 
     @Override
     public String toString() {
@@ -77,5 +87,18 @@ public class Student
                 ", telephone='" + telephone + '\'' +
                 ", computersTag=" + computersTag +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        Student student = (Student) o;
+        return Objects.equals(getId(), student.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

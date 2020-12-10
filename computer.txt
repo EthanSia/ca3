@@ -1,0 +1,9 @@
+Desktop,Asus,intel i9,8GB,1TB,3.5kg,D123456,2011-11-20,Asus
+Desktop,Asus,intel i9,8GB,1TB,3.5kg,D123457,2011-11-20,Asus
+Desktop,Asus,intel i9,8GB,1TB,3.5kg,D123458,2011-11-20,Asus
+Laptop,Asus,intel i9,8GB,1TB,3.5kg,D123459,2011-11-21,12.5 inches,35 hours
+Laptop,Asus,intel i9,8GB,1TB,3.5kg,D123460,2011-11-21,12 inches,33 hours
+Laptop,Asus,intel i9,12GB,1TB,3.8kg,D123461,2011-11-21,11 inches,34 hours
+Raspberry,Raspberry PI,Model 3,4GB,1TB,3.5kg,D123462,2011-11-22,15789,32GB
+Raspberry,Raspberry PI,Model 4B,4GB,1TB,3.5kg,D123463,2011-11-22,15790,32GB
+Raspberry,Raspberry PI,Model 4B,4GB,1TB,3.5kg,D123464,2011-11-21,15791,32GB
