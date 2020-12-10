@@ -130,24 +130,16 @@ public class StudentDB
     {
         Student s = searchStudentCompTagById(compTag);
         Iterator<String> sTag = s.getComputersTag().iterator();
-        ArrayList<String>removeTag = new ArrayList<>();
         while(sTag.hasNext())
         {
             String tag = sTag.next();
             if(tag.equals(compTag) )
             {
-                tag =null;
+                s.getComputersTag().remove(compTag);
+
 
             }
-            else
-            {
-                removeTag.add(tag);
-            }
-
         }
-
-        s.setComputersTag(removeTag);
-
 
     }
 
