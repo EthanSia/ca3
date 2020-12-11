@@ -9,7 +9,7 @@ public class Student implements Comparable<Student>
     private String name;
     private String email;
     private String telephone;
-    private ArrayList<String> computersTag;
+    private ArrayList<String> computersTag =new ArrayList<>();
 
 
     public Student( String name, String id, String email, String telephone)
