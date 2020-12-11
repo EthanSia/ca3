@@ -115,30 +115,16 @@ public class StudentDB
         }
     }
 
-    public Student searchStudentCompTagById(String assetTag)
-    {
-
-        for(Student s : studentList )
-        {
-            if(s.getComputersTag().contains(assetTag))
-                return s;
-        }
-        return null;    // not found
-    }
-
-    public void removeAssetTagInLoan(String compTag)
-    {
-        Student s = searchStudentCompTagById(compTag);
-        if(s!=null)
-        {
-            s.getComputersTag().remove(compTag);
-        }
-    }
 
     public void sortStudentDBById ()
     {
         Collections.sort(studentList);
     }
+
+    public ArrayList<Student> getStudentList() {
+        return studentList;
+    }
+
     public void displayAllStudent ()
     {
         for(Student s: studentList)
@@ -251,6 +237,8 @@ public class StudentDB
         }
         System.out.println("Enter a number to select option (enter 0 to cancel):>");
     }
+
+
 
     protected void loadStudentFromFile()
     {

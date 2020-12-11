@@ -2,7 +2,9 @@ package com.dkit.Sd2a.ethan.sia;
 
 import java.io.*;
 import java.sql.SQLOutput;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,8 +100,10 @@ public class BookingDB
         ArrayList<String>tag = new ArrayList<>();
         ArrayList<String>type = new ArrayList<>();
         String studentID;
-        String assetTag;
+        String assetTag =" ";
         String ans ="y";
+        boolean checkInLoan = false;
+
 
         System.out.println("Please enter the student id");
         studentID = kb.next();
@@ -109,11 +113,29 @@ public class BookingDB
             {
                 System.out.println("Please enter the computer assetTag");
                 assetTag = kb.next();
-                type.add(getComputerType(assetTag,cdb));
-                sdb.addAssetTagInLoan(studentID,assetTag);
-                tag.add(assetTag);
-                System.out.println("Do you want to add another computer tag for this booking");
-                ans = kb.next();
+
+                for(Student s : sdb.getStudentList())
+                {
+                    if(s.getComputersTag().contains(assetTag))
+                    {
+                        checkInLoan = true;
+                    }
+                }
+                if(checkInLoan)
+                {
+                    System.out.println("This computer has been booked by somebody");
+                    System.out.println("Do you want to get booking again?");
+                    ans = kb.next();
+                }
+                else
+                {
+                    type.add(getComputerType(assetTag,cdb));
+                    sdb.addAssetTagInLoan(studentID,assetTag);
+                    tag.add(assetTag);
+                    System.out.println("Do you want to add another computer tag for this booking");
+                    ans = kb.next();
+                }
+
             }
 
 
@@ -153,9 +175,13 @@ public class BookingDB
             if(b.getStudentId().equals(studentId)&&b.getComputersTag().contains(computerId))
             {
                 b.setReturnDateAndTime(LocalDateTime.now());
-                if(sdb.searchStudentById(studentId).equals(studentId))
+
+                for(Student s : sdb.getStudentList())
                 {
-                    sdb.removeAssetTagInLoan(computerId);
+                    if(s.getId().equals(studentId) && s.getComputersTag().contains(computerId))
+                    {
+                        s.removeTag(computerId);
+                    }
                 }
 
             }
@@ -208,10 +234,27 @@ public class BookingDB
     }
 
 
+    public void displayAverageLength()
+    {
+        int count = 0;
+        int total =0;
+        for(Book b: bookingList )
+        {
 
+            if(b.getReturnDateAndTime()!=null)
+            {
+              Duration duration = Duration.between(b.getBookDateAndTime(), b.getReturnDateAndTime());
+              duration = duration.minusDays(duration.toDaysPart()); // essentially "duration (mod 1 day)"
+               Period period = Period.between(b.getBookDateAndTime().toLocalDate(), b.getReturnDateAndTime().toLocalDate());
+              total+= Integer.parseInt(String.valueOf(period));
+              count++;
+            }
 
+        }
 
-
+        double average =(double)total/count;
+        System.out.println(average);
+    }
 
 
 

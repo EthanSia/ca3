@@ -80,7 +80,7 @@ public class App {
                         break;
 
                     case DISPLAY_AVERAGE_LENGTH_OF_ALL_BOOKING:
-
+                        booking.displayAverageLength();
                         break;
                     case PRINT_STATISTIC:
 
@@ -88,6 +88,11 @@ public class App {
                 }
             }
             catch(InputMismatchException ime)
+            {
+                System.out.println(Colours.RED + "Please enter a valid option" + Colours.RESET);
+            }
+
+            catch(IndexOutOfBoundsException ime)
             {
                 System.out.println(Colours.RED + "Please enter a valid option" + Colours.RESET);
             }

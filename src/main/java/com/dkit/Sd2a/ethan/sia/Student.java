@@ -72,6 +72,11 @@ public class Student implements Comparable<Student>
     }
 
 
+    public void removeTag(String CompTag)
+    {
+        this.computersTag.remove(CompTag);
+    }
+
 
     public int compareTo(Student other)
    {
