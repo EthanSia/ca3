@@ -66,9 +66,9 @@ public class Student implements Comparable<Student>
         return computersTag;
     }
 
-    public void setComputersTag(ArrayList<String> computersTag)
+    public void setComputersTag(String computersTag)
     {
-        this.computersTag = computersTag;
+        this.computersTag.add(computersTag);
     }
 
 

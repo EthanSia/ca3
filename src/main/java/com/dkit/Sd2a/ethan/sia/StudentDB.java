@@ -103,7 +103,7 @@ public class StudentDB
 
     }
 
-    public void addAssetTagInLoan(String studentId,ArrayList<String> assetTag)
+    public void addAssetTagInLoan(String studentId,String assetTag)
     {
 
         for(Student s: studentList)
@@ -129,18 +129,10 @@ public class StudentDB
     public void removeAssetTagInLoan(String compTag)
     {
         Student s = searchStudentCompTagById(compTag);
-        Iterator<String> sTag = s.getComputersTag().iterator();
-        while(sTag.hasNext())
+        if(s!=null)
         {
-            String tag = sTag.next();
-            if(tag.equals(compTag) )
-            {
-                s.getComputersTag().remove(compTag);
-
-
-            }
+            s.getComputersTag().remove(compTag);
         }
-
     }
 
     public void sortStudentDBById ()

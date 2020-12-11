@@ -110,12 +110,13 @@ public class BookingDB
                 System.out.println("Please enter the computer assetTag");
                 assetTag = kb.next();
                 type.add(getComputerType(assetTag,cdb));
+                sdb.addAssetTagInLoan(studentID,assetTag);
                 tag.add(assetTag);
                 System.out.println("Do you want to add another computer tag for this booking");
                 ans = kb.next();
             }
 
-            sdb.addAssetTagInLoan(studentID,tag);
+
             bookingList.add( new Book(type,studentID,tag));
         }
         else
