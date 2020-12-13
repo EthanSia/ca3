@@ -17,7 +17,7 @@ public class Book implements Comparable<Book>
     private static int counter =0000000;
     private String bookDateAndTimeString;
     private String returnDateAndTimeString;
-    private String typeComp;
+
 
 
     public Book( ArrayList<String> type,String studentID,ArrayList<String> computersTag)
@@ -27,27 +27,6 @@ public class Book implements Comparable<Book>
         this.bookDateAndTime = LocalDateTime.now();
         this.returnDateAndTime = returnDateAndTime;
         this.type =type;
-        this.studentId = studentID;
-        this.computersTag = computersTag;
-
-
-    }
-
-    public Book(String bookingID,  String bookDateAndTimeString, String returnDateAndTimeString, String typeComp,String studentId, ArrayList<String> computersTag) {
-        this.bookingID = bookingID;
-        this.bookDateAndTimeString = bookDateAndTimeString;
-        this.returnDateAndTimeString = returnDateAndTimeString;
-        this.typeComp = typeComp;
-        this.studentId = studentId;
-        this.computersTag = computersTag;
-    }
-
-    public Book(String bookID, LocalDateTime bookDateAndTime, LocalDateTime  returnDateAndTime, ArrayList<String> type, String studentID, ArrayList<String> computersTag)
-    {
-        this.bookingID =bookID;
-        this.bookDateAndTime = bookDateAndTime;
-        this.returnDateAndTime = returnDateAndTime;
-        this.type = type;
         this.studentId = studentID;
         this.computersTag = computersTag;
 
