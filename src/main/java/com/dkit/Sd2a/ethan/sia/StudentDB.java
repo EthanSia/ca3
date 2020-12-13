@@ -50,41 +50,69 @@ public class StudentDB
         return null;    // not found
     }
 
+    public Student searchStudentByCompId(String compId)
+    {
+
+        for(Student s : studentList )
+        {
+            if(s.getComputersTag().contains(compId))
+                return s;
+        }
+        return null;    // not found
+    }
+
     public void addStudent( )
     {
         String id ="";
-        String name;
-        String email;
-        String telephone;
+        String name ="";
+        String email ="";
+        String telephone ="";
+        String ans ="y";
         boolean checkDuplicate = true;
 
-        while(checkDuplicate == true)
+        while(ans.equals("y"))
         {
             System.out.println("Please enter the student id ");
             id = kb.next();
 
             for(Student s : studentList )
             {
-                if(s.getId().equals(id))
+
+                if(searchStudentById(id) != null)
                 {
-                    System.out.println("Student id is duplicate!!.Please enter again");
                     checkDuplicate =true;
                 }
-                else {
+                else
+                {
+
                     checkDuplicate =false;
                 }
 
             }
+            if(checkDuplicate ==  true)
+            {
+                checkDuplicate =false;
+                System.out.println("Student id is duplicate!!.Do you want to add student?");
+
+            }
+            else
+            {
+                System.out.println("Please enter the student name");
+                name = kb.next();
+                System.out.println("Please enter the student email");
+                email = kb.next();
+                System.out.println("Please enter the student telephone");
+                telephone = kb.next();
+                studentList.add(new Student(name,id,email,telephone));
+                System.out.println("Do you want to add student?");
+
+            }
+            ans= kb.next();
         }
 
-        System.out.println("Please enter the student name");
-        name = kb.next();
-        System.out.println("Please enter the student email");
-        email = kb.next();
-        System.out.println("Please enter the student telephone");
-        telephone = kb.next();
 
-        studentList.add(new Student(name,id,email,telephone));
+
+
     }
 
 

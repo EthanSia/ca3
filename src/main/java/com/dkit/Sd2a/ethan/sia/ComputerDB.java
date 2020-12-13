@@ -45,6 +45,10 @@ public class ComputerDB //instanceof
          }
     }
 
+    public ArrayList<Computer> getComputerList() {
+        return computerList;
+    }
+
     protected void loadComputerFromFile()
     {
         try(Scanner computerFile = new Scanner(new BufferedReader(new FileReader("computer.txt"))))
@@ -101,6 +105,43 @@ public class ComputerDB //instanceof
         {
             System.out.println("Could not load booking.If this is " +
                     "the first time running the app this might fine");
+        }
+    }
+
+    public void saveComputerToFile()
+    {
+        try(BufferedWriter computerFile = new BufferedWriter(new FileWriter("computer.txt") ))
+        {
+            for(Computer c : computerList)
+            {
+                if(c!=null)
+                {
+                    if (c instanceof Raspberry)
+                    {
+                        Raspberry r =(Raspberry) c;
+                        computerFile.write(r.getType() +","+r.getManufacturer()+","+r.getProcesses()+","+r.getRamSize()+","+r.getDiskSize()+","+r.getWeight()+","+r.getAssetTag()+","+r.getPurchaseDate()+","+r.getGPIOPins()+","+r.getSdCard());
+                        computerFile.write("\n");
+
+
+                    }
+                    else if (c instanceof Laptop)
+                    {
+                        Laptop l =(Laptop) c;
+                        computerFile.write(l.getType() +","+l.getManufacturer()+","+l.getProcesses()+","+l.getRamSize()+","+l.getDiskSize()+","+l.getWeight()+","+l.getAssetTag()+","+l.getPurchaseDate()+","+l.getScreenSizeInches()+","+l.getBatteryLife());
+
+                    }
+                    else if (c instanceof Desktop) {
+                        Desktop d =(Desktop) c;
+                        computerFile.write(d.getType() +","+d.getManufacturer()+","+d.getProcesses()+","+d.getRamSize()+","+d.getDiskSize()+","+d.getWeight()+","+d.getAssetTag()+","+d.getPurchaseDate()+","+d.getMonitor());
+
+                    }
+                }
+
+            }
+        }
+        catch(IOException ioe)
+        {
+            System.out.println(Colours.PURPLE + "Could not save computer." +Colours.RESET);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.dkit.Sd2a.ethan.sia;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -15,11 +16,12 @@ public class Book implements Comparable<Book>
     private String studentId;
     private ArrayList<String> computersTag= new ArrayList<>();
     private static int counter =0000000;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
+
 
 
     public Book( ArrayList<String> type,String studentID,ArrayList<String> computersTag)
     {
+
         counter++;
         this.bookingID ="B" +counter;
         this.bookDateAndTime = LocalDateTime.now();
@@ -27,7 +29,6 @@ public class Book implements Comparable<Book>
         this.type =type;
         this.studentId = studentID;
         this.computersTag = computersTag;
-
 
     }
 
@@ -77,8 +78,8 @@ public class Book implements Comparable<Book>
         return type;
     }
 
-    public void setType(ArrayList<String> type) {
-        this.type = type;
+    public void setType(String type) {
+        this.type.add(type);
     }
 
     public String getStudentId()
@@ -96,9 +97,9 @@ public class Book implements Comparable<Book>
         return computersTag;
     }
 
-    public void setComputersTag(ArrayList<String> computersTag)
+    public void setComputersTag(String computersTag)
     {
-        this.computersTag = computersTag;
+        this.computersTag .add(computersTag) ;
     }
 
     public void addComputersTag(String assetTag)

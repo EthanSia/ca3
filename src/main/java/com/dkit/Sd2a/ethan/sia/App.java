@@ -24,6 +24,9 @@ public class App {
         BookingDB bookings = new BookingDB();
         bookings.loadBookingFromFile();
         doMainMenuLoop(students,computers,bookings);
+        students.saveStudentToFile();
+        computers.saveComputerToFile();
+        bookings.saveBookingToFile();
 
     }
 
@@ -68,8 +71,11 @@ public class App {
                     case DELETE_BOOKING:
                         booking.removeBookById();
                         break;
-                    case  PRINT_BOOKING:
+                    case PRINT_BOOKING:
                         booking.displayAllBookings();
+                        break;
+                    case EDIT_BOOKING:
+                        booking.editBooking(booking);
                         break;
                     case  PRINT_BOOKING_IN_DATE_TIME:
                         booking.sortBookingByDateTime();
@@ -78,21 +84,15 @@ public class App {
                     case  RETURN_COMPUTER:
                         booking.returnComputer(students);
                         break;
-
                     case DISPLAY_AVERAGE_LENGTH_OF_ALL_BOOKING:
                         booking.displayAverageLength();
                         break;
                     case PRINT_STATISTIC:
-
+                        booking.printStatistic(computers);
                         break;
                 }
             }
-            catch(InputMismatchException ime)
-            {
-                System.out.println(Colours.RED + "Please enter a valid option" + Colours.RESET);
-            }
-
-            catch(IndexOutOfBoundsException ime)
+            catch(InputMismatchException | IndexOutOfBoundsException ime)
             {
                 System.out.println(Colours.RED + "Please enter a valid option" + Colours.RESET);
             }

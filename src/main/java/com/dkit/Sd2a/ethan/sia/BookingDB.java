@@ -6,8 +6,10 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookingDB
@@ -32,13 +34,20 @@ public class BookingDB
         {
 
             String input;
-            while (bookingsFile.hasNextLine())
-            {
+            LocalDateTime returnDateAndTime = null;
+            while (bookingsFile.hasNextLine()) {
                 input = bookingsFile.nextLine();
-                String [] data = input.split(",");
+                String[] data = input.split(",");
                 String bookingID = data[0];
                 LocalDateTime bookDateAndTime = LocalDateTime.parse(data[1]);
-                LocalDateTime returnDateAndTime = LocalDateTime.parse(data[2]);
+                if (data[2] != null)
+                {
+                    returnDateAndTime = LocalDateTime.parse(data[2]);
+                }
+                else
+                {
+                    returnDateAndTime =null;
+                }
                 ArrayList<String> type = new ArrayList<>();
                 for (int i = 3; i < data.length; i++)  //continue to end of data line
                 {
@@ -50,6 +59,7 @@ public class BookingDB
                 {
                     computersTag.add((data[i]));
                 }
+
 
                 Book readInBooking =new Book(bookingID,bookDateAndTime,returnDateAndTime,type,studentId,computersTag );
                 this.bookingList.add(readInBooking);
@@ -116,25 +126,27 @@ public class BookingDB
 
                 for(Student s : sdb.getStudentList())
                 {
-                    if(s.getComputersTag().contains(assetTag))
+                    if(sdb.searchStudentByCompId(assetTag)!= null)
                     {
                         checkInLoan = true;
+
                     }
                 }
-                if(checkInLoan)
-                {
-                    System.out.println("This computer has been booked by somebody");
-                    System.out.println("Do you want to get booking again?");
+                    if(checkInLoan == true)
+                    {
+                        checkInLoan = false;
+                        System.out.println("This computer has been booked by somebody");
+                        System.out.println("Do you want to get booking again?");
+                    }
+                    else
+                    {
+                        type.add(getComputerType(assetTag,cdb));
+                        sdb.addAssetTagInLoan(studentID,assetTag);
+                        tag.add(assetTag);
+                        System.out.println("Do you want to add another computer tag for this booking");
+                    }
                     ans = kb.next();
-                }
-                else
-                {
-                    type.add(getComputerType(assetTag,cdb));
-                    sdb.addAssetTagInLoan(studentID,assetTag);
-                    tag.add(assetTag);
-                    System.out.println("Do you want to add another computer tag for this booking");
-                    ans = kb.next();
-                }
+
 
             }
 
@@ -146,6 +158,176 @@ public class BookingDB
             System.out.println("This student is not exist in the system");
         }
     }
+
+    public void editBookId ()
+    {
+        System.out.println("Please enter the book id you wish to find");
+        String id =kb.next();
+
+        for(Book b: bookingList)
+        {
+            if(b.getBookingID().equals(id))
+            {
+                System.out.println("Please enter the new booking id");
+                String newId = kb.next();
+
+                b.setBookingID(newId);
+            }
+
+        }
+
+    }
+
+    public void editBookingCheckOutDate()
+    {
+        System.out.println("Please enter the book id you wish to find");
+        String id =kb.next();
+
+        for(Book b: bookingList)
+        {
+            if(b.getBookingID().equals(id))
+            {
+                System.out.println("Please enter the new booking date");
+                String newDate = kb.next();
+                LocalDateTime newBookDate = LocalDateTime.parse(newDate);
+                b.setBookDateAndTime(newBookDate);
+            }
+
+        }
+
+    }
+
+    public void editBookingReturnDate()
+    {
+        System.out.println("Please enter the book id you wish to find");
+        String id =kb.next();
+
+        for(Book b: bookingList)
+        {
+            if(b.getBookingID().equals(id))
+            {
+                System.out.println("Please enter the new booking return date");
+                String newDate = kb.next();
+                LocalDateTime newBookDate = LocalDateTime.parse(newDate);
+                b.setReturnDateAndTime(newBookDate);
+            }
+
+        }
+
+    }
+
+    public void editBookingStudentId()
+    {
+        System.out.println("Please enter the student id you wish to find");
+        String id =kb.next();
+
+        for(Book b: bookingList)
+        {
+            if(b.getStudentId().equals(id))
+            {
+                System.out.println("Please enter the new studentId");
+                String newId = kb.next();
+                b.setStudentId(newId);
+            }
+
+        }
+
+    }
+
+    public void editBookingCompType()
+    {
+        System.out.println("Please enter the student id you wish to find");
+        String id =kb.next();
+
+        for(Book b: bookingList)
+        {
+            if(b.getStudentId().equals(id))
+            {
+                System.out.println("Please enter the type of computer");
+                String type = kb.next();
+               b.setType(type);
+            }
+
+        }
+
+    }
+
+    public void editBookingCompTag()
+    {
+        System.out.println("Please enter the student id you wish to find");
+        String id =kb.next();
+
+        for(Book b: bookingList)
+        {
+            if(b.getStudentId().equals(id))
+            {
+                System.out.println("Please enter the tag of computer");
+                String tag = kb.next();
+                b.setComputersTag(tag);
+            }
+
+        }
+
+    }
+
+
+    public  void editBooking(BookingDB bdb)
+    {
+        Scanner kb = new Scanner(System.in);
+        boolean loop = true;
+        EditBookingMenu editMenuOption;
+        int option;
+        while(loop)
+        {
+            try
+            {
+                printEditBookingMenu();
+                option = kb.nextInt();
+                kb.nextLine();
+                editMenuOption = EditBookingMenu.values()[option];
+                switch(editMenuOption)
+                {
+                    case QUIT_EDIT:
+                        loop = false;
+                        break;
+                    case EDIT_ID:
+                        bdb.editBookId();
+                        break;
+                    case  EDIT_CHECK_OUT_TIME:
+                        bdb.editBookingCheckOutDate();
+                        break;
+                    case EDIT_RETURN_DATE:
+                        bdb.editBookingReturnDate();
+                        break;
+                    case  EDIT_STUDENT_ID:
+                        bdb.editBookingStudentId();
+                        break;
+                    case EDIT_TYPE:
+                        bdb.editBookingCompType();
+                        break;
+                    case  EDIT_COMPUTER_TAG:
+                        bdb.editBookingCompTag();
+                        break;
+
+                }
+            }
+            catch(InputMismatchException ime)
+            {
+                System.out.println(Colours.RED + "Please enter a valid option" + Colours.RESET);
+            }
+        }
+    }
+
+    private static void printEditBookingMenu()
+    {
+        System.out.println("\n Options to select:");
+        for(int i=0; i < EditBookingMenu.values().length;i++)
+        {
+            System.out.println("\t" + Colours.BLUE + i + ". " + EditBookingMenu.values()[i].toString() + Colours.RESET);
+        }
+        System.out.println("Enter a number to select option (enter 0 to cancel):>");
+    }
+
 
     public void removeBookById( )
     {
@@ -168,8 +350,6 @@ public class BookingDB
         System.out.println("Please enter the computer id");
         String computerId = kb.next();
 
-
-
         for(Book b: bookingList )
         {
             if(b.getStudentId().equals(studentId)&&b.getComputersTag().contains(computerId))
@@ -182,17 +362,12 @@ public class BookingDB
                     {
                         s.removeTag(computerId);
                     }
+
                 }
 
             }
-            else
-            {
-                System.out.println("The student id or computer id is not found");
-            }
+
         }
-
-
-
 
     }
 
@@ -243,19 +418,54 @@ public class BookingDB
 
             if(b.getReturnDateAndTime()!=null)
             {
-              Duration duration = Duration.between(b.getBookDateAndTime(), b.getReturnDateAndTime());
-              duration = duration.minusDays(duration.toDaysPart()); // essentially "duration (mod 1 day)"
-               Period period = Period.between(b.getBookDateAndTime().toLocalDate(), b.getReturnDateAndTime().toLocalDate());
-              total+= Integer.parseInt(String.valueOf(period));
+
+              total+= Integer.parseInt(String.valueOf(ChronoUnit.SECONDS.between(b.getBookDateAndTime(), b.getReturnDateAndTime())));
               count++;
             }
 
         }
 
         double average =(double)total/count;
-        System.out.println(average);
+        System.out.println(average + "seconds");
     }
 
+
+    public void printStatistic(ComputerDB cdb)
+    {
+        int countDesk =0;
+        int countLap =0;
+        int countRasp =0;
+        for(Book b: bookingList )
+        {
+            if(b.getComputersTag()!= null)
+            {
+                for(int i =0;i<b.getComputersTag().size();i++)
+                {
+                    Computer c = cdb.findComputerById(b.getComputersTag().get(i));
+                    if(c!=null)
+                    {
+                        if (c instanceof Raspberry)
+                        {
+                            Raspberry r =(Raspberry) c;
+                            countRasp++;
+
+                        } else if (c instanceof Laptop)
+                        {
+                            Laptop l =(Laptop) c;
+                            countLap++;
+
+                        } else if (c instanceof Desktop)
+                        {
+                            Desktop d =(Desktop) c;
+                            countDesk++;
+                        }
+                    }
+                }
+            }
+
+        }
+        System.out.println("There have "+countDesk+" Desktop, "+countLap+" Laptop and  "+countRasp+" Raspberry have been booked by today"+LocalDateTime.now());
+    }
 
 
 }
