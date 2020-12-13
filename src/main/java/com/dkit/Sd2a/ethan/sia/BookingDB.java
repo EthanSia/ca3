@@ -34,20 +34,13 @@ public class BookingDB
         {
 
             String input;
-            LocalDateTime returnDateAndTime = null;
-            while (bookingsFile.hasNextLine()) {
+            while (bookingsFile.hasNextLine())
+            {
                 input = bookingsFile.nextLine();
-                String[] data = input.split(",");
+                String [] data = input.split(",");
                 String bookingID = data[0];
-                LocalDateTime bookDateAndTime = LocalDateTime.parse(data[1]);
-                if (data[2] != null)
-                {
-                    returnDateAndTime = LocalDateTime.parse(data[2]);
-                }
-                else
-                {
-                    returnDateAndTime =null;
-                }
+                String bookDateAndTime = data[1] ;
+                String returnDateAndTime = data[2];
                 ArrayList<String> type = new ArrayList<>();
                 for (int i = 3; i < data.length; i++)  //continue to end of data line
                 {
@@ -59,7 +52,6 @@ public class BookingDB
                 {
                     computersTag.add((data[i]));
                 }
-
 
                 Book readInBooking =new Book(bookingID,bookDateAndTime,returnDateAndTime,type,studentId,computersTag );
                 this.bookingList.add(readInBooking);
@@ -409,7 +401,7 @@ public class BookingDB
     }
 
 
-    public void displayAverageLength()
+    public double displayAverageLength()
     {
         int count = 0;
         int total =0;
@@ -419,18 +411,18 @@ public class BookingDB
             if(b.getReturnDateAndTime()!=null)
             {
 
-              total+= Integer.parseInt(String.valueOf(ChronoUnit.SECONDS.between(b.getBookDateAndTime(), b.getReturnDateAndTime())));
+              total+= Integer.parseInt(String.valueOf(ChronoUnit.MINUTES.between(b.getBookDateAndTime(), b.getReturnDateAndTime())));
               count++;
             }
 
         }
 
         double average =(double)total/count;
-        System.out.println(average + "seconds");
+        return average;
     }
 
 
-    public void printStatistic(ComputerDB cdb)
+    public String printStatistic(ComputerDB cdb)
     {
         int countDesk =0;
         int countLap =0;
@@ -464,7 +456,7 @@ public class BookingDB
             }
 
         }
-        System.out.println("There have "+countDesk+" Desktop, "+countLap+" Laptop and  "+countRasp+" Raspberry have been booked by today"+LocalDateTime.now());
+        return "There have "+countDesk+" Desktop, "+countLap+" Laptop and  "+countRasp+" Raspberry have been booked by today";
     }
 
 

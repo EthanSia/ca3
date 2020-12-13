@@ -88,7 +88,7 @@ public class App {
                         booking.displayAverageLength();
                         break;
                     case PRINT_STATISTIC:
-                        booking.printStatistic(computers);
+                        System.out.println(booking.printStatistic(computers));
                         break;
                 }
             }
